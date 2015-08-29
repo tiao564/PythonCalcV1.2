@@ -33,6 +33,5 @@ while (MathString != "exit" and MathString != "exit"):
         if I in IsNum:
             TempArgument.append(I)
     TempArgument = "".join(TempArgument)
-    float(TempArgument)
-    print TempArgument
-    
+    TempArgument = float(TempArgument)
+    Arguments.append(TempArgument)
