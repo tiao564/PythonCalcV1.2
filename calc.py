@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 ######################
 #Main file, runs calc#
 ######################
@@ -32,15 +33,19 @@ print "\nWelcome to a simple calculator, type help to get a full list of command
 #While not exit, the leave condition, accept inputs
 while (MathString != "exit" and MathString != "exit"):
     MathString = raw_input("")
+    if (MathString == "exit" or MathString == "exit " or MathString == "Exit" or MathString == "Exit "):
+        print "\nThank you, have a nice day.\n"
+        sys.exit(0)
     MathParts = list(MathString)
     for I in MathParts:
-        if I in IsNum:
-            TempArgument.append(I)
-        else:
-            TempArgument = "".join(TempArgument)
-            TempArgument = float(TempArgument)
-            Arguments.append(TempArgument)
-            TempArgument = [] 
+        if I != " ":
+            if I in IsNum:
+                TempArgument.append(I)
+            else:
+                TempArgument = "".join(TempArgument)
+                TempArgument = float(TempArgument)
+                Arguments.append(TempArgument)
+                TempArgument = [] 
         if I in IsOp:
             op = I
     TempArgument = "".join(TempArgument)
@@ -49,4 +54,5 @@ while (MathString != "exit" and MathString != "exit"):
     TempArgument = [] 
     print "______________________"
     print operation(op,Arguments[0],Arguments[1])
+    print "\n"
     Arguments = []
