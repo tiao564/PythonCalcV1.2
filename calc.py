@@ -17,12 +17,6 @@ from read import *
 MathString = ""
 #Holds numbers to put into operations
 Arguments = list()
-#Array of nums
-IsNum = ["1","2","3","4","5","6","7","8","9","0","."]
-#Arry of operations
-IsOp = ["+","-","*","/","%","^"]
-#Temp to hold arguments
-TempArgument = list()
 #End variables
 
 #################################

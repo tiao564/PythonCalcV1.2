@@ -9,7 +9,7 @@
 #Holds possible values to check against numbers
 IsNum = ["1","2","3","4","5","6","7","8","9","0","."]
 #Holds possible operations to check against
-IsOp = ["+","-","*","/","^"]
+IsOp = ["+","-","*","/","%","^"]
 
 
 def read_string(MathParts):
