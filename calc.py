@@ -8,6 +8,7 @@
 #########
 import sys
 from operation import *
+from read import *
 
 ###########
 #Variables#
@@ -19,7 +20,7 @@ Arguments = list()
 #Array of nums
 IsNum = ["1","2","3","4","5","6","7","8","9","0","."]
 #Arry of operations
-IsOp = ["+","-","*","/","^"]
+IsOp = ["+","-","*","/","%","^"]
 #Temp to hold arguments
 TempArgument = list()
 #End variables
@@ -37,22 +38,8 @@ while (MathString != "exit" and MathString != "exit"):
         print "\nThank you, have a nice day.\n"
         sys.exit(0)
     MathParts = list(MathString)
-    for I in MathParts:
-        if I != " ":
-            if I in IsNum:
-                TempArgument.append(I)
-            else:
-                TempArgument = "".join(TempArgument)
-                TempArgument = float(TempArgument)
-                Arguments.append(TempArgument)
-                TempArgument = [] 
-        if I in IsOp:
-            op = I
-    TempArgument = "".join(TempArgument)
-    TempArgument = float(TempArgument)
-    Arguments.append(TempArgument)
-    TempArgument = [] 
+    Arguments = read_string(MathParts)
     print "______________________"
-    print operation(op,Arguments[0],Arguments[1])
+    print operation(Arguments[1],Arguments[0],Arguments[2])
     print "\n"
     Arguments = []

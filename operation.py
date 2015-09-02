@@ -24,6 +24,9 @@ def operation(op,a,b):
         if(op=="/"):
 		answer = a/b
 		return answer
+        if(op=="%"):
+                answer = a%b
+                return answer
         if(op=="^"):
 		answer = a**b
 		return answer
