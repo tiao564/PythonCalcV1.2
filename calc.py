@@ -32,8 +32,8 @@ while (MathString != "exit" and MathString != "exit"):
         print "\nThank you, have a nice day.\n"
         sys.exit(0)
     MathParts = list(MathString)
-    Arguments = read_string(MathParts)
+    Answer = order_of_op(MathParts)
     print "______________________"
-    print operation(Arguments[1],Arguments[0],Arguments[2])
+    print Answer 
     print "\n"
     Arguments = []
