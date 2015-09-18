@@ -13,8 +13,9 @@ from operation import *
 IsNum = ["1","2","3","4","5","6","7","8","9","0","."]
 #Holds possible operations to check against
 IsOp = ["+","-","*","/","%","^"]
-
-
+#Define order of ops
+MD = ["*","/","%"]
+AD = ["+","-"]
 def get_answer(MathParts):
     Arguments = list() 
     TempArgument = list()
@@ -43,44 +44,62 @@ def get_answer(MathParts):
     return answer
 
 def order_of_op(MathParts):
-    List_len = len(MathParts)
-    print List_len
     Looper = 0
     Arguments = []
     First_arg = []
     Secnd_arg = []
-    while (Looper < List_len):
-        if (MathParts[Looper] == "*" or MathParts[Looper] == "/" or MathParts[Looper] == "%"):
-            print"\n in main loop\n"
+    while (Looper < len(MathParts)):
+        if (MathParts[Looper] in MD):
+            First_arg = []
+            Secnd_arg= []
+            List_len = len(MathParts)
             Op = MathParts[Looper]                                                    #gets op
-            First_num = Looper-1                                                      #starts pull for first number 
+            First_num = Looper-1                                                    #starts pull for first number 
             Secnd_num = Looper+1                                                      #starts pull for second number
-            while MathParts[First_num] in IsNum:                                      #while the value is a num 
-                print "\n in first_num loop \n"
-                First_arg.append(MathParts[First_num])                                #add to first num list
-                First_num = First_num-1                                               #decrement loop
-            InstertPoint = First_num+1                                                #save point to save answer back into array
-            while (MathParts[Secnd_num] in IsNum) and Secnd_num != List_len:          #while the value is a num
-                print "\n in second num loop \n"
-                Secnd_arg.append(MathParts[Secnd_num])                                #add to second num list
-                Secnd_num = Secnd_num+1                                               #increment loop
-            if Secnd_num == List_len and MathParts[Secnd_num]:
-                Secnd_arg.append(MathParts[Secnd_num])
-            First_arg = reversed(First_arg)                                           #get the correct first value
-            Arguments = [First_arg, Op, Secnd_arg]        
-            Instert = get_answer(Arguments)                                           #get answer of equations
-            Del_start = First_num+1                                                   #start point to remove from string
-            Del_end   = Secnd_num-1                                                   #stop point to remove from string
-            while (First_num < Secnd_num):
-              Value = MathParts[First_num]                                            #get value to remove
+            First_bool = True
+            Secnd_bool = True
+            while First_bool == True:                                      #while the value is a num 
+                if First_num != -1:
+                    if MathParts[First_num] in IsNum:
+                        First_arg.append(MathParts[First_num])                                #add to first num list
+                        First_num = First_num-1                                               #decrement loop
+                    else:
+                            First_bool = False
+                else:
+                    First_bool = False
+            while Secnd_bool == True:                                                 #while the value is a num
+                if Secnd_num != List_len:
+                    if MathParts[Secnd_num] in IsNum:
+                        Secnd_arg.append(MathParts[Secnd_num])                                #add to second num list
+                        Secnd_num = Secnd_num+1                                               #increment loop
+                    else:
+                        Secnd_bool = False
+                else:
+                    Secnd_bool = False
+            InsertPoint = First_num+1                                                #save point to save answer back into array
+            First_arg = list(reversed(First_arg))                                           #get the correct first value
+            First_arg = "".join(First_arg)
+            Secnd_arg = "".join(Secnd_arg)
+            First_arg = float(First_arg)
+            Secnd_arg = float(Secnd_arg)
+            Insert = operation(Op, First_arg, Secnd_arg)                                           #get answer of equations
+            Insert = str(Insert)
+            Insert = list(Insert)
+
+            Del_len = (Secnd_num-1)-(First_num+1)                                                #start point to remove from string
+            Del = First_num+1
+            Del_loop = 0                                                   #stop point to remove from string
+            while (Del_loop <= Del_len):
+              Value = MathParts[Del]                                            #get value to remove
               MathParts.remove(Value)                                                 #remove value
-              First_num = First_num+1                                                 #increment loop
-            MathParts.insert(InsertPoint, Insert)
+              Del_loop = Del_loop+1
+            for num in Insert:
+                MathParts.insert(InsertPoint, num)
+                InsertPoint = InsertPoint+1
             Answer = "".join(MathParts)
             Looper = 0
         else:
             Looper = Looper+1
-            
     Answer = float(Answer)
     return Answer
 
