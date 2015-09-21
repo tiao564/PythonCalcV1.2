@@ -13,9 +13,9 @@ from operation import *
 IsNum = ["1","2","3","4","5","6","7","8","9","0","."]
 #Holds possible operations to check against
 IsOp = ["+","-","*","/","%","^"]
-#Define order of ops
+#Define order of Ops
 MD = ["*","/","%"]
-AD = ["+","-"]
+AS = ["+","-"]
 def get_answer(MathParts):
     Arguments = list() 
     TempArgument = list()
@@ -44,12 +44,27 @@ def get_answer(MathParts):
     return answer
 
 def order_of_op(MathParts):
+    MathParts = do_Ops(MathParts, MD) 
+    MathParts = do_Ops(MathParts, AS)
+    MathParts = "".join(MathParts)
+    return MathParts
+
+#def read_string(MathParts):
+#    List_len = len(MathParts)
+#    Looper = 0
+#    while iter < List_len:
+#        if MathParts[iter] != " ":
+#            if MathParts[iter] == "(":
+#
+#            elif MathParts[iter] == ")":
+
+def do_Ops(MathParts, Ops):
     Looper = 0
     Arguments = []
     First_arg = []
     Secnd_arg = []
     while (Looper < len(MathParts)):
-        if (MathParts[Looper] in MD):
+        if (MathParts[Looper] in Ops):
             First_arg = []
             Secnd_arg= []
             List_len = len(MathParts)
@@ -100,22 +115,4 @@ def order_of_op(MathParts):
             Looper = 0
         else:
             Looper = Looper+1
-    Answer = float(Answer)
-    return Answer
-
-
-   
-#def read_string(MathParts):
-#    List_len = len(MathParts)
-#    Looper = 0
-#    while iter < List_len:
-#        if MathParts[iter] != " ":
-#            if MathParts[iter] == "(":
-#
-#            elif MathParts[iter] == ")":
-
-
-
-
-
-
+    return MathParts
