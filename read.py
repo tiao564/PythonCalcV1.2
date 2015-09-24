@@ -14,6 +14,7 @@ IsNum = ["1","2","3","4","5","6","7","8","9","0","."]
 #Holds possible operations to check against
 IsOp = ["+","-","*","/","%","^"]
 #Define order of Ops
+ExNLog = ["log", "^"]
 MD = ["*","/","%"]
 AS = ["+","-"]
 def get_answer(MathParts):
@@ -44,6 +45,7 @@ def get_answer(MathParts):
     return answer
 
 def order_of_op(MathParts):
+    MathParts = do_Ops(MathParts, ExNLog)
     MathParts = do_Ops(MathParts, MD) 
     MathParts = do_Ops(MathParts, AS)
     MathParts = "".join(MathParts)
@@ -59,6 +61,7 @@ def order_of_op(MathParts):
 #            elif MathParts[iter] == ")":
 
 def do_Ops(MathParts, Ops):
+    
     Looper = 0
     Arguments = []
     First_arg = []
@@ -69,6 +72,10 @@ def do_Ops(MathParts, Ops):
             Secnd_arg= []
             List_len = len(MathParts)
             Op = MathParts[Looper]                                                    #gets op
+            if Op == "+" or Op=="-":
+                print "sum \n"
+            if Op == "*" or Op== "/" or Op == "%":
+                print "product \n"
             First_num = Looper-1                                                    #starts pull for first number 
             Secnd_num = Looper+1                                                      #starts pull for second number
             First_bool = True
@@ -105,10 +112,11 @@ def do_Ops(MathParts, Ops):
             Del = First_num+1
             Del_loop = 0                                                   #stop point to remove from string
             while (Del_loop <= Del_len):
-              Value = MathParts[Del]                                            #get value to remove
-              MathParts.remove(Value)                                                 #remove value
+              
+              del MathParts[Del]                                                 #remove value
               Del_loop = Del_loop+1
             for num in Insert:
+		
                 MathParts.insert(InsertPoint, num)
                 InsertPoint = InsertPoint+1
             Answer = "".join(MathParts)
