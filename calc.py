@@ -47,7 +47,7 @@ while (MathString != "exit" and MathString != "exit"):
         print "\n"
     else:
         MathParts = list(MathString)
-        Answer = order_of_op(MathParts)
+        Answer = read_string(MathParts)
         print "______________________"
         print Answer 
         print ""

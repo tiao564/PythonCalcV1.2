@@ -51,15 +51,6 @@ def order_of_op(MathParts):
     MathParts = "".join(MathParts)
     return MathParts
 
-#def read_string(MathParts):
-#    List_len = len(MathParts)
-#    Looper = 0
-#    while iter < List_len:
-#        if MathParts[iter] != " ":
-#            if MathParts[iter] == "(":
-#
-#            elif MathParts[iter] == ")":
-
 def do_Ops(MathParts, Ops):
     
     Looper = 0
@@ -72,10 +63,6 @@ def do_Ops(MathParts, Ops):
             Secnd_arg= []
             List_len = len(MathParts)
             Op = MathParts[Looper]                                                    #gets op
-            if Op == "+" or Op=="-":
-                print "sum \n"
-            if Op == "*" or Op== "/" or Op == "%":
-                print "product \n"
             First_num = Looper-1                                                    #starts pull for first number 
             Secnd_num = Looper+1                                                      #starts pull for second number
             First_bool = True
@@ -98,7 +85,7 @@ def do_Ops(MathParts, Ops):
                         Secnd_bool = False
                 else:
                     Secnd_bool = False
-            InsertPoint = First_num+1                                                #save point to save answer back into array
+            Insert_point = First_num+1                                                #save point to save answer back into array
             First_arg = list(reversed(First_arg))                                           #get the correct first value
             First_arg = "".join(First_arg)
             Secnd_arg = "".join(Secnd_arg)
@@ -112,15 +99,50 @@ def do_Ops(MathParts, Ops):
             Del = First_num+1
             Del_loop = 0                                                   #stop point to remove from string
             while (Del_loop <= Del_len):
-              
               del MathParts[Del]                                                 #remove value
               Del_loop = Del_loop+1
             for num in Insert:
-		
-                MathParts.insert(InsertPoint, num)
-                InsertPoint = InsertPoint+1
+                MathParts.insert(Insert_point, num)
+                Insert_point = Insert_point+1
             Answer = "".join(MathParts)
             Looper = 0
         else:
             Looper = Looper+1
     return MathParts
+
+def read_string(MathParts):                           #( ( ( ) ( ) ) (  ) )
+    List_len = len(MathParts)
+    Iter = 0
+    Looper = 0
+    In_paren = []
+
+    while Iter < List_len:
+        if MathParts[Iter] != " ":
+            if MathParts[Iter] == "(":
+               Paren_start = Iter
+            if MathParts[Iter] == ")":
+                Insert_point = Paren_start
+                Del_loop = Iter-Paren_start
+                Del_start = 0
+                Del = Paren_start
+
+                while(Paren_start < Iter-1):
+                   In_paren.append(MathParts[Paren_start+1])
+                   Paren_start = Paren_start+1
+                Answer = order_of_op(In_paren)
+                Answer = list(Answer)
+
+                while(Del_start <= Del_loop):
+                    del MathParts[Del]
+                    Del_start = Del_start + 1
+
+                for num in Answer:
+                    MathParts.insert(Insert_point, num)
+                    Insert_point = Insert_point+1
+
+                In_paren = []
+                Iter = 0
+        List_len = len(MathParts)
+        Iter = Iter+1
+    Answer = order_of_op(MathParts)
+    return Answer
