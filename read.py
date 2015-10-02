@@ -10,7 +10,7 @@ from operation import *
 #Variables#
 ###########
 #Holds possible values to check against numbers
-IsNum = ["1","2","3","4","5","6","7","8","9","0","."]
+IsNum = ["1","2","3","4","5","6","7","8","9","0",".","-"]
 #Holds possible operations to check against
 IsOp = ["+","-","*","/","%","^"]
 #Define order of Ops
@@ -37,11 +37,8 @@ def get_answer(MathParts):
     TempArgument = []
     Arguments.append(Unit) 
     answer = operation(Arguments[1],Arguments[0],Arguments[2])  #get answer
-    print answer
     answer = str(answer)                                        #change to string
-    print answer
     answer = list(answer)                                       #split into list
-    print answer
     return answer
 
 def order_of_op(MathParts):
@@ -58,7 +55,7 @@ def do_Ops(MathParts, Ops):
     First_arg = []
     Secnd_arg = []
     while (Looper < len(MathParts)):
-        if (MathParts[Looper] in Ops):
+        if (MathParts[Looper] in Ops and Looper != 0):
             First_arg = []
             Secnd_arg= []
             List_len = len(MathParts)
@@ -69,7 +66,7 @@ def do_Ops(MathParts, Ops):
             Secnd_bool = True
             while First_bool == True:                                      #while the value is a num 
                 if First_num != -1:
-                    if MathParts[First_num] in IsNum:
+                    if MathParts[First_num] in IsNum and not("-" in First_arg):
                         First_arg.append(MathParts[First_num])                                #add to first num list
                         First_num = First_num-1                                               #decrement loop
                     else:
@@ -78,7 +75,10 @@ def do_Ops(MathParts, Ops):
                     First_bool = False
             while Secnd_bool == True:                                                 #while the value is a num
                 if Secnd_num != List_len:
-                    if MathParts[Secnd_num] in IsNum:
+                    if MathParts[Secnd_num] == "-":
+                        Secnd_arg.append("-")
+                        Secnd_num = Secnd_num+1
+                    if MathParts[Secnd_num] in IsNum and MathParts[Secnd_num] != "-":
                         Secnd_arg.append(MathParts[Secnd_num])                                #add to second num list
                         Secnd_num = Secnd_num+1                                               #increment loop
                     else:
@@ -87,10 +87,24 @@ def do_Ops(MathParts, Ops):
                     Secnd_bool = False
             Insert_point = First_num+1                                                #save point to save answer back into array
             First_arg = list(reversed(First_arg))                                           #get the correct first value
-            First_arg = "".join(First_arg)
-            Secnd_arg = "".join(Secnd_arg)
-            First_arg = float(First_arg)
-            Secnd_arg = float(Secnd_arg)
+            if "-" in First_arg:
+               First_arg.remove("-") 
+               First_arg = "".join(First_arg)
+               First_arg = float(First_arg)
+               First_arg = -1 * First_arg
+            else:
+               First_arg = "".join(First_arg)
+               First_arg = float(First_arg)
+
+            if "-" in Secnd_arg:
+               Secnd_arg.remove("-") 
+               Secnd_arg = "".join(Secnd_arg)
+               Secnd_arg = float(Secnd_arg)
+               Secnd_arg = -1 * Secnd_arg               
+            else:
+                Secnd_arg = "".join(Secnd_arg)
+                Secnd_arg = float(Secnd_arg)
+
             Insert = operation(Op, First_arg, Secnd_arg)                                           #get answer of equations
             Insert = str(Insert)
             Insert = list(Insert)
